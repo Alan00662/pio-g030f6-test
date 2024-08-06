@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "main.h": "c",
+        "stm32g0xx_ll_gpio.h": "c",
+        "config.h": "c",
+        "application.h": "c",
+        "log.h": "c",
+        "sbus.h": "c",
+        "ppm.h": "c",
+        "iwdg.h": "c",
+        "gps.h": "c",
+        "crsf.h": "c",
+        "usart.h": "c",
+        "crsf_protocol.h": "c",
+        "usart1.h": "c",
+        "debugio.h": "c",
+        "usart2.h": "c",
+        "usart4.h": "c",
+        "dma.h": "c",
+        "key.h": "c",
+        "led.h": "c",
+        "linklist.h": "c",
+        "fifo.h": "c",
+        "sensor.h": "c",
+        "stm32g0xx_ll_dma.h": "c",
+        "stm32g0xx_it.h": "c",
+        "flash.h": "c",
+        "stm32g0xx_ll_tim.h": "c",
+        "flash_cfg.h": "c"
+    }
+}
