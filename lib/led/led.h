@@ -1,12 +1,12 @@
 /**
   ******************************************************************************
-  * @file    usart.h
+  * @file    gpio.h
   * @brief   This file contains all the function prototypes for
-  *          the usart.c file
+  *          the gpio.c file
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -17,8 +17,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART1_H__
-#define __USART1_H__
+#ifndef __GPIO_H__
+#define __GPIO_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,45 +27,35 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
 
-/* USER CODE END Includes */
+#define LED1_Pin LL_GPIO_PIN_2
+#define LED1_GPIO_Port GPIOD
 
-/* USER CODE BEGIN Private defines */
-#define UART1_TX_DMA_BUF_LEN	128
-#define UART1_RX_DMA_BUF_LEN	80
+#define LED2_Pin LL_GPIO_PIN_3
+#define LED2_GPIO_Port GPIOB
 
-#define RX1_SENSOR_BUF_SIZE   50
+#define LED3_Pin LL_GPIO_PIN_3
+#define LED3_GPIO_Port GPIOD
 
-typedef struct crsf_sensor_s
-{
-  uint8_t buf[RX1_SENSOR_BUF_SIZE];
-  uint8_t pack_size;
-  uint8_t id;
-
-} __attribute__((packed)) crsf_sensor_t;
-
-extern crsf_sensor_t rx_sensor;
-
-extern char usart1RxBuff[UART1_RX_DMA_BUF_LEN];
-extern uint8_t usart1TxBuff[UART1_TX_DMA_BUF_LEN] ;
-/* USER CODE END Private defines */
-
-
-void uart1_init(void);
+void LED_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void tx1_dma_send(void);
-void uart1_rx_handler(void);
-void uart1_send_one_byte(uint8_t Data);
-void uart1_send_buf(uint8_t *buf,uint8_t len) ;
-void debug_tx1(char *fmt, ...);
+void led1_on(void);
+void led1_off(void);
+void led1_toggle(void);
+void led2_on(void);
+void led2_off(void);
+void led2_toggle(void);
+void led3_on(void);
+void led3_off(void);
+void led3_toggle(void);
+
+void Led_Status_Loop(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __USART_H__ */
+#endif /*__ GPIO_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

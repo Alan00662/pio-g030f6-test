@@ -21,10 +21,18 @@
 #include "usart1.h"
 #include "usart2.h"
 #include "config.h"
+<<<<<<< HEAD
+=======
+#include "gps.h"
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
 #include "crsf_protocol.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+<<<<<<< HEAD
+=======
+#include "stdarg.h"
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
 /* USER CODE BEGIN 0 */
 /* USER CODE BEGIN 1 */
 char usart1RxBuff[UART1_RX_DMA_BUF_LEN] = {0};
@@ -314,7 +322,14 @@ void uart1_rx_handler(void)
     {
         if (usart1RxBuff[i] == CRSF_ADDRESS_CRSF_RECEIVER) // 如果是CRSF数据帧
         {
-          
+            rx_sensor.pack_size = (usart1RxBuff[i + 1] + 2); // 获取包长度= buf[2]+2
+            rx_sensor.id = usart1RxBuff[i + 2];              // 获取ID
+
+            for (j = 0; j < rx_sensor.pack_size; j++) // 获取完整数据包
+            {
+                rx_sensor.buf[j] = usart1RxBuff[i + j];
+            }
+            // uart2_send_buf(rx_sensor.buf,rx_sensor.pack_size);
         }
     }
 }
@@ -337,6 +352,22 @@ void uart1_send_buf(uint8_t *buf, uint8_t len)
     }
 }
 
+<<<<<<< HEAD
+=======
+void debug_tx1(char * fmt, ...)
+{
+	int len;
+	char buf[200];
+
+	va_list	arguments;
+		
+	va_start(arguments, fmt);
+	len = vsnprintf(buf, sizeof(buf) - 1, fmt, arguments);
+	va_end(arguments);
+	uart1_send_buf((uint8_t *)buf,len);
+}
+
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

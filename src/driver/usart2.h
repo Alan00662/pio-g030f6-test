@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -17,8 +17,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART1_H__
-#define __USART1_H__
+#ifndef __USART_H__
+#define __USART_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,39 +27,33 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
+#define UART2_RX_FIFO_BUF_LEN	256
 
-/* USER CODE END Includes */
+#define UART2_TX_DMA_BUF_LEN	64
+#define UART2_RX_DMA_BUF_LEN	64
 
-/* USER CODE BEGIN Private defines */
-#define UART1_TX_DMA_BUF_LEN	128
-#define UART1_RX_DMA_BUF_LEN	80
-
-#define RX1_SENSOR_BUF_SIZE   50
-
-typedef struct crsf_sensor_s
-{
-  uint8_t buf[RX1_SENSOR_BUF_SIZE];
-  uint8_t pack_size;
-  uint8_t id;
-
-} __attribute__((packed)) crsf_sensor_t;
-
-extern crsf_sensor_t rx_sensor;
-
-extern char usart1RxBuff[UART1_RX_DMA_BUF_LEN];
-extern uint8_t usart1TxBuff[UART1_TX_DMA_BUF_LEN] ;
-/* USER CODE END Private defines */
+#define UART2_RX_DMA_CHANNEL	LL_DMA_CHANNEL_1
+#define UART2_TX_DMA_CHANNEL	LL_DMA_CHANNEL_2
 
 
-void uart1_init(void);
+void uart2_init(void);
 
+int uart2_write(uint8_t * buf, int len);
+int uart2_read(uint8_t * buf, int len);
+int uart2_read_buf_len(void);
+uint8_t uart2_read_byte(void);
+
+void uart2_rx_dma_half_irq(void);
+void uart2_rx_dma_complete_irq(void);
+void uart2_tx_dma_complete_irq(void);
+void uart2_rx_idle_irq(void);
+
+void uart2_send_one_byte(uint8_t Data);
+void uart2_send_buf(uint8_t *buf,uint8_t len) ;
+void debug_tx2(char * fmt, ...);	
+void uart2_send_string(char *str);
 /* USER CODE BEGIN Prototypes */
-void tx1_dma_send(void);
-void uart1_rx_handler(void);
-void uart1_send_one_byte(uint8_t Data);
-void uart1_send_buf(uint8_t *buf,uint8_t len) ;
-void debug_tx1(char *fmt, ...);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -172,8 +172,61 @@ void tx4_dma_send(void)
 char *wellhandled_string = NULL;
 char USART_RX_BUF[UART4_RX_DMA_BUF_LEN]; // 接收缓冲
 
-void uart4_rx_handler(void) //50ms
+void uart4_rx_handler(void)
 {
+    uint16_t i = 0;
+    uint16_t j = 0;
+    static uint8_t rmc_lose_cnt = 0;
+
+    /* find "$GPRMC" from raw_buf */
+    if ((GPS_Buffer = strstr(usart4RxBuff, "$GNRMC")) != NULL)
+    {
+        //  debug_tx1("$GNRMC found\n");
+        rmc_lose_cnt = 0;
+        GPS_massage = GPS_Message_ALL;
+         for (i = 0; i < strlen(GPS_Buffer); i++)
+         {
+             if (GPS_Buffer[i] == '/n')
+             {
+                 GPS_Buffer[i] = '/0'; // replace ‘/n’ with null
+             }
+        }
+
+    }
+    else
+    {
+        rmc_lose_cnt++;
+    }
+    if(rmc_lose_cnt > 4)  // 150ms超时没有收到$GNRMC，则认为是只有VTG信息
+    {
+        rmc_lose_cnt = 0;
+        GPS_massage = GPS_Message_VTG;
+    }
+
+
+    /* find "$GPRMC" from raw_buf */
+    if ((Ground_Buffer = strstr(usart4RxBuff, "$GNVTG")) != NULL)
+    {
+        for (i = 0; i < strlen(Ground_Buffer); i++)
+        {
+            if (Ground_Buffer[i] == '/n')
+            {
+                Ground_Buffer[i] = '/0'; // replace ‘/n’ with null
+            }
+        }
+    }
+
+    if ((ALT_Buffer = strstr(usart4RxBuff, "$GNGGA")) != NULL)
+    {
+        for (i = 0; i < strlen(ALT_Buffer); i++)
+        {
+            if (ALT_Buffer[i] == '/n')
+            {
+                ALT_Buffer[i] = '/0'; // replace ‘/n’ with null
+            }
+        }
+    }
+
 
 
 }

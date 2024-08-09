@@ -1,7 +1,14 @@
 #include "crsf.h"
+<<<<<<< HEAD
 #include "driver/usart4.h"
 #include "main.h"
 #include "crsf_protocol.h"
+=======
+#include "driver/usart2.h"
+#include "main.h"
+#include "crsf_protocol.h"
+#include "log.h"
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
 #include "string.h"
 
 /* CRC START*************************/

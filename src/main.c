@@ -23,6 +23,11 @@
 #include "driver/usart1.h"
 #include "driver/usart2.h"
 #include "led.h"
+<<<<<<< HEAD
+=======
+#include "key.h"
+#include "gps.h"
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
 #include "driver/dma.h"                                                                                                                                                       
 #include "application.h"
 
@@ -102,6 +107,10 @@ int main(void)
 	/* Initialize all configured peripherals */
 	LED_GPIO_Init();
 
+<<<<<<< HEAD
+=======
+  KEY_GPIO_Init();
+>>>>>>> 8db0e3e6a8b8e581f900a2eb1dc2e7793f54450c
   MX_DMA_Init();  
   
 #if IWDG_ENABLE
